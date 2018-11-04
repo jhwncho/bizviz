@@ -6,12 +6,9 @@ import MapWrapper from './components/MapWrapper'
 import './app.css';
 import myData from './data/bay_area_taz.json';
 
-
-const MAPBOX_TOKEN = 'pk.eyJ1IjoibHpoYW5nOTciLCJhIjoiY2pvMmI4NmRpMDBwMDN2bzh1bG5yb2pwNiJ9.PYMhqUHSeI5mAw12nxYc3w';
-
 const INITIAL_VIEW_STATE = {
-  latitude: 37.785164,
-  longitude: -122.41669,
+  latitude: 37.867894,
+  longitude: -122.257867,
   zoom: 10,
   bearing: -5,
   pitch: 0
@@ -19,58 +16,30 @@ const INITIAL_VIEW_STATE = {
 
 export default class App extends Component {
 
-  async componentDidMount() {
-    const connector = new MapdCon();
-    const defaultQueryOptions = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      latitude: INITIAL_VIEW_STATE.latitude,
+      longitude: INITIAL_VIEW_STATE.longitude
+    }
+  }
 
-    connector.protocol('https')
-      .host('use2-api.mapd.cloud')
-      .port('443')
-      .dbName('mapd')
-      .user('F85929885DCAD4EE4812')
-      .password('VHPsdFmDtDN7AHyVHMjXiitzL3rmYqUg5rQBIj6a')
-      .connectAsync()
-      .then(session=>{
-        Promise.all([
-          session.queryAsync('SELECT u.*, s1.* FROM uber_movement_data as u INNER JOIN san_francisco_taz as s1 ON u.sourceid = s1.MOVEMENT_ID LIMIT 100', defaultQueryOptions)
-        ])
-        .then(values => {
-          console.log(values);
-          console.log(process.env)
-          // initializeDOM();
-          // var polygonData=dataTransformPoly(values[0]);
-          // createDeckGL(dataTransformPoint(values[1]),polygonData[0],polygonData[1]);
-          // $('#modal_loading').modal('hide')
-      })
-  })
-  .catch(error => {
-    console.error("Something bad happened: ", error)
-  })
+  async searchBusinesses(category) {
+    const res = await fetch('/api/businessSearch/' + category);
+    if (res) {
+      const resJSON = await res.json();
+      let businesses = resJSON.businesses;
+      console.log('Businesses: ', businesses); 
+    }
+  }
+  
+  async componentDidMount() {
+    await this.searchBusinesses('bubbletea'); // Just for fun
   }
 
   render() {
     return (
-      <MapWrapper>
-        <button> </button>
-        <DeckGL initialViewState={INITIAL_VIEW_STATE} controller={true} width="100%" height="100%">
-          <StaticMap mapboxApiAccessToken={MAPBOX_TOKEN} />
-          { <GeoJsonLayer
-            data={myData}
-            filled={false}
-            stroked={true}
-            pickable={true}
-            wireframe={true}
-            visible={true}
-            lineWidthScale={10}
-            lineWidthMinPixels={2}
-          /> }
-          {/* <ScatterplotLayer
-            data={[{position: [-122.41669, 37.79]}]}
-            radiusScale={100}
-            getColor={x => [0, 0, 255]}
-          /> */}
-        </DeckGL>
-      </MapWrapper>
+      <MapWrapper initialViewState={INITIAL_VIEW_STATE} {...this.state} />
     );
   }
 }
