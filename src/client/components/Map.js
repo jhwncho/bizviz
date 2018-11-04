@@ -5,7 +5,7 @@ import myData from '../../../data/bay_area_taz.json';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoibHpoYW5nOTciLCJhIjoiY2pvMmI4NmRpMDBwMDN2bzh1bG5yb2pwNiJ9.PYMhqUHSeI5mAw12nxYc3w'; 
 
-export default class MapWrapper extends Component {
+export default class Map extends Component {
     constructor(props) {
         super(props)
     }
@@ -22,8 +22,8 @@ export default class MapWrapper extends Component {
                         pickable={true}
                         wireframe={true}
                         visible={true}
-                        lineWidthScale={10}
-                        lineWidthMinPixels={2}
+                        getLineWidth={1}
+                        lineWidthScale={5}
                     /> }
                 </DeckGL>
             </div>
