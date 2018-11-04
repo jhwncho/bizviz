@@ -17,12 +17,13 @@ app.get('/api/getUsername', (req, res) => {
 }
 
 */ 
-app.get('/api/businessSearch/:category', (req, res)=> {
-    console.log('Params: ', req.params)
+app.get('/api/businessSearch', (req, res)=> {
+    const {category, latitude, longitude} = req.query;
+    console.log('Query Params: ', req.query)
     client.search({
-        categories: req.params.category,
-        latitude: 37.867894,
-        longitude: -122.257867,
+        categories: category,
+        latitude: latitude,
+        longitude: longitude,
         limit: 50
     }).then(yelpResponse => {
         const body = JSON.parse(yelpResponse.body)
@@ -32,7 +33,6 @@ app.get('/api/businessSearch/:category', (req, res)=> {
             businesses.push({name: business.name, latitude, longitude})
         }
         res.send({businesses})
-        console.log(businesses)
     }).catch(e => {
         console.log(e)
     })
