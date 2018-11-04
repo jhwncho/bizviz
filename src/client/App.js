@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import MapDCon from '@mapd/connector/dist/browser-connector';
-import DeckGL, {LineLayer, ScatterplotLayer} from 'deck.gl';
+import DeckGL, {GeoJsonLayer, LineLayer, ScatterplotLayer} from 'deck.gl';
 import {StaticMap} from 'react-map-gl';
 import MapWrapper from './components/MapWrapper'
 import './app.css';
+import myData from './data/bay_area_taz.json';
 
-const MAPBOX_TOKEN = 'pk.eyJ1IjoibHpoYW5nOTciLCJhIjoiY2pvMmI4NmRpMDBwMDN2bzh1bG5yb2pwNiJ9.PYMhqUHSeI5mAw12nxYc3w'; 
+
+const MAPBOX_TOKEN = 'pk.eyJ1IjoibHpoYW5nOTciLCJhIjoiY2pvMmI4NmRpMDBwMDN2bzh1bG5yb2pwNiJ9.PYMhqUHSeI5mAw12nxYc3w';
 
 const INITIAL_VIEW_STATE = {
   latitude: 37.785164,
@@ -16,7 +18,7 @@ const INITIAL_VIEW_STATE = {
 };
 
 export default class App extends Component {
-  
+
   async componentDidMount() {
     const connector = new MapdCon();
     const defaultQueryOptions = {};
@@ -48,14 +50,20 @@ export default class App extends Component {
 
   render() {
     return (
-      <MapWrapper> 
+      <MapWrapper>
         <button> </button>
         <DeckGL initialViewState={INITIAL_VIEW_STATE} controller={true} width="100%" height="100%">
           <StaticMap mapboxApiAccessToken={MAPBOX_TOKEN} />
-          {/* <LineLayer
-            data={[{sourcePosition: [-122.41669, 37.7883], targetPosition: [-122.41669, 37.781]}]}
-            strokeWidth={5}
-          /> */}
+          { <GeoJsonLayer
+            data={myData}
+            filled={false}
+            stroked={true}
+            pickable={true}
+            wireframe={true}
+            visible={true}
+            lineWidthScale={10}
+            lineWidthMinPixels={2}
+          /> }
           {/* <ScatterplotLayer
             data={[{position: [-122.41669, 37.79]}]}
             radiusScale={100}
