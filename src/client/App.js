@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MapDCon from '@mapd/connector/dist/browser-connector';
 import DeckGL, {LineLayer, ScatterplotLayer} from 'deck.gl';
 import {StaticMap} from 'react-map-gl';
 import './app.css';
@@ -16,7 +17,32 @@ const INITIAL_VIEW_STATE = {
 export default class App extends Component {
   
   async componentDidMount() {
+    const connector = new MapdCon();
+    const defaultQueryOptions = {};
 
+    connector.protocol('https')
+      .host('use2-api.mapd.cloud')
+      .port('443')
+      .dbName('mapd')
+      .user('F85929885DCAD4EE4812')
+      .password('VHPsdFmDtDN7AHyVHMjXiitzL3rmYqUg5rQBIj6a')
+      .connectAsync()
+      .then(session=>{
+        Promise.all([
+          session.queryAsync('SELECT u.*, s1.* FROM uber_movement_data as u INNER JOIN san_francisco_taz as s1 ON u.sourceid = s1.MOVEMENT_ID LIMIT 100', defaultQueryOptions)
+        ])
+        .then(values => {
+          console.log(values);
+          console.log(process.env)
+          // initializeDOM();
+          // var polygonData=dataTransformPoly(values[0]);
+          // createDeckGL(dataTransformPoint(values[1]),polygonData[0],polygonData[1]);
+          // $('#modal_loading').modal('hide')
+      })
+  })
+  .catch(error => {
+    console.error("Something bad happened: ", error)
+  })
   }
 
   render() {

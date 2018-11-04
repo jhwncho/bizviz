@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "@mapd/connector": "^4.2.0",
     "deck.gl": "^6.2.3",
     "express": "^4.16.3",
     "react": "^16.5.2",
