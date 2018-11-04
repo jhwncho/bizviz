@@ -29,7 +29,8 @@ export default class App extends Component {
       latitude: INITIAL_VIEW_STATE.latitude,
       longitude: INITIAL_VIEW_STATE.longitude,
       category: Object.keys(businessCategories)[0],
-      type: Object.keys(businessCategories.Food)[0]
+      type: Object.keys(businessCategories.Food)[0],
+      businesses: []
     }
 
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -49,7 +50,7 @@ export default class App extends Component {
     if (res) {
       const resJSON = await res.json();
       let businesses = resJSON.businesses;
-      console.log(businesses)
+      this.setState({businesses})
     }
   }
   
