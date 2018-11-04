@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import './app.css';
 import ReactImage from './react.png';
+import { runInThisContext } from 'vm';
 
 export default class App extends Component {
   state = { username: null };
 
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
+  async componentDidMount() {
+    const res = await fetch('/api/getUsername');
+    if (res) {
+      const resJson = await res.json();
+      this.setState(resJson);
+    }
   }
 
   render() {
@@ -16,6 +19,7 @@ export default class App extends Component {
     return (
       <div>
         <h1>Sup Bitches</h1>
+        {username ? <h2> Fuck you {username} </h2> : null }
       </div>
     );
   }
