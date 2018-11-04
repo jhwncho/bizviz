@@ -18,8 +18,13 @@ const INITIAL_VIEW_STATE = {
 
 
 const businessCategories = {
-  Food: {American: 'tradamerican', Chinese: 'chinese', Italian: 'italian', Japanese: 'japanese', Mexican: 'mexican'},
-  Nightlife: {Bars: 'bars', 'Beer Gardens': 'beergardens', 'Dance Clubs': 'danceclubs', Karaoke: 'karaoke'}
+  Active: {Archery: 'archery', 'Basketball Courts': 'basketballcourts', 'Martial Arts': 'martialarts', 'Paintball': 'paintball', 'Yoga': 'yoga' },
+  'Beauty & Spas': {Barbers: 'barbers', 'Day Spas': 'spas', 'Hair Salons': 'hair', Massage: 'massage', 'Skin Care': 'skincare', 'Tattoos': 'tattoo'},
+  Health: {Acupuncture: 'acupuncture', Chiropractors: 'chiropractors', 'Counseling & Mental Health': 'c_and_mh', Dentists: 'dentists', Hospitals: 'hospitals', Pharmacy: 'pharmacy', Physicians: 'physicians', 'Urgent Care': 'urgent_care' },
+  Entertainment: {Arcades: 'arcades', Casinos: 'casinos', Cinema: 'movietheaters', Museums: 'museums', 'Performing Arts': 'theater'},
+  Nightlife: {Bars: 'bars', 'Beer Gardens': 'beergardens', 'Dance Clubs': 'danceclubs', Karaoke: 'karaoke'},
+  Restaurants: {American: 'tradamerican', Chinese: 'chinese', Italian: 'italian', Japanese: 'japanese', Mexican: 'mexican'},
+  Shopping: {Bookstores: 'bookstores', Electronics: 'electronics', 'Men\'s Clothing': 'menscloth', 'Women\'s Clothing': 'womenscloth', 'Sporting Goods': 'sportgoods'}
 }
 
 export default class App extends Component {
@@ -30,7 +35,7 @@ export default class App extends Component {
       latitude: INITIAL_VIEW_STATE.latitude,
       longitude: INITIAL_VIEW_STATE.longitude,
       category: Object.keys(businessCategories)[0],
-      type: Object.keys(businessCategories.Food)[0],
+      type: Object.keys(businessCategories.Active)[0],
       businesses: [], 
       polygons: [],
     }
