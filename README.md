@@ -33,6 +33,10 @@ In the production mode, we will have only 1 server running. All the client side 
 # Clone the repository
 git clone https://github.com/louiszhang97/lambdas_calhacks2018.git
 
+cd lambdas_calhacks2018
+
+code . #open project in VS Code. If this command doesn't work then just Google "install VS Code terminal command" 
+
 # Install dependencies
 npm install
 
