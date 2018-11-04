@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import MapDCon from '@mapd/connector/dist/browser-connector';
-import DeckGL, {GeoJsonLayer, LineLayer, ScatterplotLayer} from 'deck.gl';
-import {StaticMap} from 'react-map-gl';
 import MapWrapper from './components/MapWrapper'
 import './app.css';
-import myData from './data/bay_area_taz.json';
 
 const INITIAL_VIEW_STATE = {
   latitude: 37.867894,
