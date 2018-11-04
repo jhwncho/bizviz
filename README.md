@@ -40,6 +40,8 @@ npm install
 npm start
 ```
 
+Your browser should open up http://localhost:3000. Print statements from src/client will be outputted in the Chrome Debugger Console while those from src/server will show up in your terminal
+
 ## Documentation
 
 ### Folder Structure
