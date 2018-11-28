@@ -12,6 +12,29 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoibHpoYW5nOTciLCJhIjoiY2pvMmI4NmRpMDBwMDN2bzh1bG5
 export default class Map extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            x: 0,
+            y: 0,
+            hoveredObject: null
+        }
+        this._renderTooltip = this._renderTooltip.bind(this);
+        this._onHover = this._onHover.bind(this);
+    }
+    _onHover({x, y, object}) {
+        this.setState({x, y, hoveredObject: object});
+    }
+
+    _renderTooltip() {
+        const {x, y, hoveredObject} = this.state;
+        return (
+            hoveredObject && (
+                <div style={{position: 'absolute', top: y, left: x, zIndex: 1, background:'black', opacity: '0.7', color: 'white'}}>
+                    <div style={{color: 'white', padding: '4px'}}>
+                        <b>{hoveredObject.name}</b>
+                    </div>
+                </div>
+            )
+        );
     }
 
     render() {
@@ -86,8 +109,7 @@ export default class Map extends Component {
                 getIcon: d => 'marker',
                 getSize: d => 5,
                 getColor: d => [0, 0, 0],
-                onHover: ({object}) => setTooltip(`${object.name}`)
-
+                onHover: this._onHover
             }), 
             
         ]
@@ -96,6 +118,7 @@ export default class Map extends Component {
             <div>
                 <DeckGL onViewStateChange={onViewStateChange} initialViewState={initialViewState} controller={true} layers={layers} width="100%" height="100%">
                     <StaticMap mapboxApiAccessToken={MAPBOX_TOKEN} />
+                    {this._renderTooltip}
                 </DeckGL>
             </div>
         ); 
