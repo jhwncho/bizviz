@@ -53,16 +53,6 @@ export default class Map extends Component {
 
 
         const layers = [
-            // new GeoJsonLayer({
-            //     data: myData,
-            //     filled: false,
-            //     stroked: true,
-            //     pickable: true,
-            //     wireframe: true,
-            //     visible: true,
-            //     getLineWidth: 5,
-            //     lineWidthScale: 10
-            // }),
             new PolygonLayer({
                 id: 'polygon-layer',
                 data: polygons,
@@ -70,7 +60,7 @@ export default class Map extends Component {
                 stroked: true,
                 filled: true,
                 wireframe: true,
-                lineWidthMinPixels: 2,
+                lineWidthMinPixels: 1,
                 getPolygon: d => d.contour,
                 // getElevation: d => d.population / d.area / 10,
                 getFillColor: d => COLOR_SCALE(d.min_tt),
@@ -106,16 +96,6 @@ export default class Map extends Component {
             <div>
                 <DeckGL onViewStateChange={onViewStateChange} initialViewState={initialViewState} controller={true} layers={layers} width="100%" height="100%">
                     <StaticMap mapboxApiAccessToken={MAPBOX_TOKEN} />
-                     {/* <GeoJsonLayer
-                        data={myData}
-                        filled={false}
-                        stroked={true}
-                        pickable={true}
-                        wireframe={true}
-                        visible={true}
-                        getLineWidth={1}
-                        lineWidthScale={5}
-                    />  */}
                 </DeckGL>
             </div>
         ); 

@@ -20,6 +20,7 @@ const INITIAL_VIEW_STATE = {
 const businessCategories = {
   Active: {Archery: 'archery', 'Basketball Courts': 'basketballcourts', 'Martial Arts': 'martialarts', 'Paintball': 'paintball', 'Yoga': 'yoga' },
   'Beauty & Spas': {Barbers: 'barbers', 'Day Spas': 'spas', 'Hair Salons': 'hair', Massage: 'massage', 'Skin Care': 'skincare', 'Tattoos': 'tattoo'},
+  Dessert: {'Boba': 'bubbletea', 'Ice Cream': 'icecream'},
   Health: {Acupuncture: 'acupuncture', Chiropractors: 'chiropractors', 'Counseling & Mental Health': 'c_and_mh', Dentists: 'dentists', Hospitals: 'hospitals', Pharmacy: 'pharmacy', Physicians: 'physicians', 'Urgent Care': 'urgent_care' },
   Entertainment: {Arcades: 'arcades', Casinos: 'casinos', Cinema: 'movietheaters', Museums: 'museums', 'Performing Arts': 'theater'},
   Nightlife: {Bars: 'bars', 'Beer Gardens': 'beergardens', 'Dance Clubs': 'danceclubs', Karaoke: 'karaoke'},
@@ -124,6 +125,7 @@ export default class App extends Component {
     .connectAsync()
 
     const values = await session.queryAsync(query, defaultQueryOptions);
+    console.log('Values: ', values)
     return values;
   }
 
@@ -142,7 +144,7 @@ export default class App extends Component {
           Type:
           <DropDown value={this.state.type} choices={Object.keys(businessCategories[this.state.category])} onChange={this.handleTypeChange}/>  
           <ContainedButton onClick={() => {this.searchBusinesses(searchTerm)}}color='primary' text='Search'></ContainedButton> 
-          <ContainedButton onClick={() => {this.getRegionIDs()}}color='primary' text='Query'></ContainedButton> 
+          {/* <ContainedButton onClick={() => {this.getRegionIDs()}}color='primary' text='Query'></ContainedButton>  */}
         </div>
       </div> 
     );
